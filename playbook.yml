@@ -1,0 +1,23 @@
+---
+ - name: demo web server
+   hosts: uk
+   become: yes
+   become_user: root
+
+   tasks:
+     - name: "install package"
+       yum:
+         name: nginx
+         state: latest 
+
+     - name: "start service"
+       service: 
+        name: nginx
+        state: restarted
+     - name: "open port"
+       firewalld:
+        service: https
+        permanent: yes
+        state: enabled
+     
+
